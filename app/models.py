@@ -9,14 +9,14 @@ class User(db.Model):
     email = db.Column(db.String(255))
     phone_number=db.Column(db.Integer)
     pass_secure = db.Column(db.String(255))
-        @property
-        def password(self):
+    @property
+    def password(self):
             raise AttributeError('Failed You cannot read the password')
-        @property.setter
-        def password(self,password):
+    @password.setter
+    def password(self,password):
             self.pass_secure=generate_password_hash(password)
-        def verify_password(self,password):
-            return check_password_hash(self.pass_secure,password)
+    def verify_password(self,password):
+        return check_password_hash(self.pass_secure,password)
 
 class Stock_Info(db.Model):
     """docstring for [object Object]."""
