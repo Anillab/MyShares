@@ -4,6 +4,7 @@ class Config:
     '''
     General configuration parent class
     '''
+    SECRET_KEY='secrdetdrytfut'
     pass
 
 class ProdConfig(Config):
