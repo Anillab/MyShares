@@ -13,7 +13,6 @@ from flask_sqlalchemy import SQLAlchemy
 # login_manager.login_view = 'auth.login'
 bootstrap = Bootstrap()
 db = SQLAlchemy()
-
 def create_app(config_name):
     '''
     Function that takes configuration setting key as an argument
