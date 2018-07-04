@@ -43,6 +43,17 @@ def register():
     title = 'Home'
 
     return render_template('registration.html', title = title , form = form )
+@main.route('/about')
+def about():
+    '''
+    View root page function that returns the index page and its data
+    '''
+
+
+    title = 'About Us'
+
+    return render_template('about.html', title = title)
+
 
 @main.route('/login')
 def login():
