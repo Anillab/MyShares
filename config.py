@@ -4,7 +4,8 @@ class Config:
     '''
     General configuration parent class
     '''
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://xv:greatkali@localhost/stocks'
+    SQLALCHEMY_DATABASE_URI='sqlite:////home/xv/Desktop/chromeext/flask-template/database.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
 
 class ProdConfig(Config):
     '''
