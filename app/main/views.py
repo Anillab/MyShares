@@ -4,7 +4,7 @@ from . import main
 from .forms import RegistrationForm,LoginForm
 
 # with app.app_context():
-#     app.config['SECRET_KEY'] = 'kabagemark' 
+#     app.config['SECRET_KEY'] = 'kabagemark'
 
 # Views
 # @main.route('/')
@@ -42,5 +42,4 @@ def login():
         return redirect(url_for('index'))
     title = 'Home'
 
-    return render_template('login.html', title = title , form = form )     
-
+    return render_template('login.html', title = title , form = form )
