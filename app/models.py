@@ -12,8 +12,8 @@ class STOCKSHistory(db.Model):
     companyid = db.Column(db.BigInteger)
     json = db.Column(db.String(255350))
     def get_stocks(comapny):
-        if STOCKSHistory.query.filter(companyid==comapny).first():
-            return STOCKSHistory.query.filter(companyid==comapny).first()
+        if STOCKSHistory.query.filter(STOCKSHistory.companyid==comapny).first():
+            return STOCKSHistory.query.filter(STOCKSHistory.companyid==comapny).first()
         else:
             from .data import get_chart
             get_chart(comapny)
