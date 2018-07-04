@@ -41,14 +41,14 @@ class Stock_Info(db.Model):
     __tablename__='stocks_info'
     id=db.Column(db.Integer,primary_key=True)
     Company_id=db.Column(db.String(65535))
-    High_trade=db.Column(db.BigInteger)
-    Low_trade=db.Column(db.BigInteger)
-    Last_traded_price=db.Column(db.BigInteger)
-    Close_price=db.Column(db.BigInteger)
-    Prev_close=db.Column(db.BigInteger)
+    High_trade=db.Column(db.Float)
+    Low_trade=db.Column(db.Float)
+    Last_traded_price=db.Column(db.Float)
+    Close_price=db.Column(db.Float)
+    Prev_close=db.Column(db.Float)
     Vol_traded=db.Column(db.BigInteger)
-    Year_low_price=db.Column(db.BigInteger)
-    Year_high_price=db.Column(db.BigInteger)
+    Year_low_price=db.Column(db.Float)
+    Year_high_price=db.Column(db.Float)
     day=db.Column(db.String(10))
 
 class User_stock_info(db.Model):

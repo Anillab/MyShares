@@ -6,7 +6,4 @@ from ..requests import *
 @main.route('/')
 def index():
     title = 'Home'
-    todays = get_todays()
-    companies = get_companies()
-    data = get_companies()
     return render_template('index.html', title = title ,todays=todays, companies=companies)
