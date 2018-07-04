@@ -33,7 +33,7 @@ def test():
 
 @manager.shell
 def make_shell_context():
-    return dict( app=app, db=db, User=User)
+    return dict( app=app, db=db, User=User,Stock_Info=Stock_Info,User_stock_info=User_stock_info,Company=Company)
 
 
 if __name__ == '__main__':
