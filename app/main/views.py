@@ -7,16 +7,29 @@ from .forms import RegistrationForm,LoginForm
 #     app.config['SECRET_KEY'] = 'kabagemark'
 
 # Views
-# @main.route('/')
-# def index():
+@main.route('/')
+def index():
 
-#     '''
-#     View root page function that returns the index page and its data
-#     '''
+    '''
+    View root page function that returns the index page and its data
+    '''
 
-#     title = 'Home'
+    title = 'Home'
 
-#     return render_template('index.html', title = title )
+    return render_template('index.html', title = title )
+@main.route('/orders')
+def order():
+    '''
+    View root page function that returns the index page and its data
+    '''
+
+    # form = RegistrationForm()
+    # if form.validate_on_submit():
+    #     return redirect(url_for('index'))
+    title = 'Orders'
+
+    return render_template('Orders.html', title = title )
+
 
 @main.route('/register')
 def register():
@@ -30,6 +43,17 @@ def register():
     title = 'Home'
 
     return render_template('registration.html', title = title , form = form )
+@main.route('/about')
+def about():
+    '''
+    View root page function that returns the index page and its data
+    '''
+
+
+    title = 'About Us'
+
+    return render_template('about.html', title = title)
+
 
 @main.route('/login')
 def login():
