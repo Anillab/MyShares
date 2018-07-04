@@ -12,3 +12,12 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(),EqualTo('password')])
 
     submit = SubmitField('sign-up')
+
+class LoginForm(FlaskForm):
+    username = StringField('Username',validators=[DataRequired(),Length(min=2,max=20)])
+
+    email = StringField('Email',validators=[DataRequired(),Email()])
+    
+    password = PasswordField('Password', validators=[DataRequired()])
+
+    submit = SubmitField('Login')    
