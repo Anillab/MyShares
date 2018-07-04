@@ -1,7 +1,7 @@
 import urllib.request,json,time
 from .models import *
 from . import db
-
+# from .data import get_chart
 base_url='https://abacus.co.ke/api/v2/{}'
 '''
 {
@@ -47,60 +47,61 @@ base_url='https://abacus.co.ke/api/v2/{}'
 '''
 
 def parsestocks(obj,today):
-	for company in obj:
-		id=company["companyid"]
-		high=company["high_trade"]
-		low=company["low_trade"]
-		last=company["last_traded_price"]
-		prev=company["previous_close"]
-		close=company["close"]
-		volume=company["volume"]
-		yrlow=company["year_low_price"]
-		yrhigh=company["year_high_price"]
-		saveobject(Stock_Info(
-			Company_id=id,
-			High_trade=high,
-			Low_trade=low,
-			Last_traded_price=last,
-			Close_price=close,
-			Prev_close=prev,
-			Vol_traded=volume,
-			Year_low_price=yrlow,
-			Year_high_price=yrhigh,
-			day=today))
-	return Stock_Info.query.filter(Stock_Info.day==today).all()
+    for company in obj:
+        id=company["companyid"]
+        high=company["high_trade"]
+        low=company["low_trade"]
+        last=company["last_traded_price"]
+        prev=company["previous_close"]
+        close=company["close"]
+        volume=company["volume"]
+        yrlow=company["year_low_price"]
+        yrhigh=company["year_high_price"]
+        saveobject(Stock_Info(
+            Company_id=id,
+            High_trade=high,
+            Low_trade=low,
+            Last_traded_price=last,
+            Close_price=close,
+            Prev_close=prev,
+            Vol_traded=volume,
+            Year_low_price=yrlow,
+            Year_high_price=yrhigh,
+            day=today))
+    return Stock_Info.query.filter(Stock_Info.day==today).all()
 
 def parsecompanies(obj):
-	for comp in obj:
-		saveobject(Company(Company_id=comp["company_id"],
-		Logo=comp["logo"],
-		Name=comp["name"],
-		Details=comp["details"][:256],
-		Location=comp["location"],
-		Auditors=comp["auditors"],
-		Incorporation_date=comp["incorporation_date"],
-		Listing_Price=comp["listing_price"],
-		Shares_Issued=comp["shares_issued"],
-		Financial_Year=comp["financial_year"],
-		Par_value=comp["par_value"],
-		Parent_Company=comp["parent_company"],
-		Address=comp["address"],
-		Website=comp["website"],
-		Indices=comp["indices"],
-		Sector=comp["sector"]))
-
+    for comp in obj:
+        saveobject(Company(Company_id=comp["company_id"],
+        Logo=comp["logo"],
+        Name=comp["name"],
+        Details=comp["details"],
+        Location=comp["location"],
+        Auditors=comp["auditors"],
+        Incorporation_date=comp["incorporation_date"],
+        Listing_Price=comp["listing_price"],
+        Shares_Issued=comp["shares_issued"],
+        Financial_Year=comp["financial_year"],
+        Par_value=comp["par_value"],
+        Parent_Company=comp["parent_company"],
+        Address=comp["address"],
+        Website=comp["website"],
+        Indices=comp["indices"],
+        Sector=comp["sector"]))
+    print(len(obj))
 
 def get_companies():
-	url=base_url.format('companies/')
-	with urllib.request.urlopen(url) as rsp:
-		resp=json.loads(rsp.read())
-	return parsecompanies(resp["data"])
+    url=base_url.format('companies/')
+    with urllib.request.urlopen(url) as rsp:
+        resp=json.loads(rsp.read())
+    return parsecompanies(resp["data"])
+
 
 def get_todays():
-	today=time.strftime('%d-%m-%Y')
-	if Stock_Info.query.filter(Stock_Info.day==today).first():
-		return Stock_Info.query.filter(Stock_Info.day==today).all()
-	url=base_url.format('instruments')
-	with urllib.request.urlopen(url) as rsp:
-		resp=json.loads(rsp.read())
-	return parsestocks(resp["data"],today)
+    today=time.strftime('%d-%m-%Y')
+    if Stock_Info.query.filter(Stock_Info.day==today).first():
+        return Stock_Info.query.filter(Stock_Info.day==today).all()
+    url=base_url.format('instruments')
+    with urllib.request.urlopen(url) as rsp:
+        resp=json.loads(rsp.read())
+    return parsestocks(resp["data"],today)

@@ -11,6 +11,9 @@
         {% for temp in todays %}
         <h2>{{temp.Company_id}}</h2>
         {% endfor %}
+        {% for temp in companies %}
+        <h2>{{temp.Name}}</h2>
+        {% endfor %}
     </div>
 
 {% endblock %}
