@@ -2,7 +2,7 @@
 from app import create_app,db
 from flask_script import Manager,Server
 # Connect to models
-from app.models import User
+from app.models import User,Stock_Info,User_stock_info,Company,STOCKSHistory
 # Set up migrations
 from flask_migrate import Migrate,MigrateCommand
 
@@ -33,7 +33,7 @@ def test():
 
 @manager.shell
 def make_shell_context():
-    return dict( app=app, db=db, User=User,Stock_Info=Stock_Info,User_stock_info=User_stock_info,Company=Company)
+    return dict( app=app, db=db, User=User,Stock_Info=Stock_Info,User_stock_info=User_stock_info,Company=Company,STOCKSHistory=STOCKSHistory)
 
 
 if __name__ == '__main__':
