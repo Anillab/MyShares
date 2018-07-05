@@ -4,7 +4,9 @@ class Config:
     '''
     General configuration parent class
     '''
-    pass
+    SQLALCHEMY_DATABASE_URI='sqlite:////home/xv/Desktop/chromeext/flask-template/database.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
+    SECRET_KEY='jihoio@##RQT$WGFSDAGw/.,/>?>?}#@{$^#{%&$*#%#$Fzxcijk}dfg'
 
 class ProdConfig(Config):
     '''
@@ -20,14 +22,14 @@ class TestConfig(Config):
     Testing configuration child class
 
     Args:
-        Config: The parent configuration class with General configuration settings 
+        Config: The parent configuration class with General configuration settings
     '''
     pass
 
 class DevConfig(Config):
     '''
     Development configuration child class
-    
+
     Args:
         Config: The parent configuration class with General configuration settings
     '''

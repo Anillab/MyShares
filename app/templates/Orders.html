@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content">
+    <div class="panel panel-flat">
+	    <div class="panel-heading">
+	        <h5 class="panel-title">Buy / Sell Shares</h5>
+	    </div>
+	    <div class="panel-body">
+	    	<div class="row">
+	    		<form method="POST" action="https://abacus.co.ke/live/myshares/orders" accept-charset="UTF-8" class="col-md-5" id="order-form"><input name="_token" type="hidden" value="PQoikTafLcs8vfNoFcEejXHpgEgk9EYeDwTdyz93">
+	<div class="row form-group">
+        <div class="col-md-4">
+            <label class="display-block text-bold">Action:</label>
+        </div>
+        <div class="col-md-4">
+            <label class="radio-inline">
+                <input type="radio" name="action" value="BUY" class="styled" checked="checked"> Buy
+            </label>
+        </div>
+        <div class="col-md-4">
+            <label class="radio-inline">
+                <input type="radio" name="action" value="SELL" class="styled"> Sell
+            </label>
+        </div>
+    </div>
+    <div class="row form-group">
+    	<div class="col-md-4">
+        	<label class="control-label text-bold">Security ID / Name:</label>
+        </div>
+        <div class="col-lg-8">
+        	<input type="hidden" name="security">
+            <input type="hidden" name="security_name">
+            <input type="hidden" name="board" value="NORMAL">
+        	<input type="hidden" name="orderType" value="LMT">
+            <input type="text" class="form-control" name="security_search" required="required" placeholder="e.g. SCOM or Safaricom">
+            <span class="help-block js-company-input-text"></span>
+        </div>
+    </div>
+    <div class="row form-group">
+    	<!-- <div class="col-md-4">
+    		<label class="control-label text-bold">Price:</label>
+        </div> -->
+        <div class="col-lg-8">
+            <div class="input-group">
+                <span class="input-group-addon">KES:</span>
+                <input type="text" class="form-control" name="price" required="required">
+            </div>
+            <span class="help-block js-company-price-limit-text"></span>
+        </div>
+    </div>
+    <div class="row form-group">
+    	<div class="col-md-4">
+        	<label class="control-label text-bold">Quantity:</label>
+        </div>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" name="quantity" required="required" placeholder="Should be in lots of 100 e.g. 300, 400, 1100">
+        </div>
+    </div>
+    <div class="row form-group">
+    	<div class="col-md-4">
+        	<label class="control-label text-bold">Set Price For Sale Automation:</label>
+        </div>
+        <div class="col-lg-8">
+        	<div class="input-group">
+				<span class="input-group-addon"><i class="icon-calendar22"></i></span>
+				<input type="text" class="form-control daterange-single" name="validity">
+			</div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary pull-right" id="preview-order-button">Place Order</button>
+</form>	    		<div class="col-md-4 pull-right">
+    <table class="table table-xxs table-borderless js-details-cash">
+        <caption class="text-center">Your Account Details</caption>
+        <tbody>
+            <tr>
+                <td>Available trading funds:</td>
+                <td class="text-right">KES 803.35</td>
+            </tr>
+            <tr>
+                <td>Order Value:</td>
+                <td class="text-right" data-account-value="order_value">--</td>
+            </tr>
+            <tr>
+                <td>Tax Value:</td>
+                <td class="text-right" data-account-value="tax_value">--</td>
+            </tr>
+            <tr>
+                <td>Broker Value:</td>
+                <td class="text-right" data-account-value="broker_value">--</td>
+            </tr>
+            <tr class="bg-grey">
+                <td><b>Total Charge:</b></td>
+                <td class="text-right" data-account-value="total_value">--</td>
+            </tr>
+            <tr class="bg-grey">
+                <td><b>Remaining Funds:</b></td>
+                <td class="text-right" data-account-value="remaining_funds_value">--</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-xxxs hidden js-details-portfolio">
+        <caption class="text-center">Your Portfolio</caption>
+        <tbody>
+                        <tr>
+                <td>KEGN</td>
+                <td class="text-right">1,000</td>
+            </tr>
+                        <tr>
+                <td>SCOM</td>
+                <td class="text-right">400</td>
+            </tr>
+                    </tbody>
+    </table>
+    <table class="table table-xxxs">
+        <caption class="text-center js-order-book-title">No Company Selected.</caption>
+        <thead class="bg-grey-600">
+            <tr>
+                <th colspan="2" class="text-center">BIDS</th>
+                <th colspan="2" class="text-center">ASKS</th>
+            </tr>
+            <tr>
+                <th class="text-right">Price</th>
+                <th class="text-right">Quantity</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Quantity</th>
+            </tr>
+        </thead>
+        <tbody class="js-order-book-tbody"></tbody>
+    </table>
+</div>	    	</div>
+	    </div>
+	</div>
+		</div>
+    {% endblock %}
