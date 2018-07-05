@@ -2,14 +2,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
- <div class="container">
-     {{wtf.quick_form(form)}}
- </div>
- <div class="border-top pt-3">
-  <small class="text-muted">
-    Already have an account? <a class="ml-2" href="{{url_for ('auth.login')}}">sign in </a>
-  </small>
- </div>
-</center>
-</center>
+<h2><b>Sign Up</b></h2>
+ <div class="container-form">
+         {{wtf.quick_form(form)}}
+        <hr>
+     <div class="border-top pt-3">
+      <small class="text-muted">
+        Already have an account? <a class="ml-2" href="{{url_for ('auth.login')}}">sign in </a>
+      </small>
+     </div>
+</div>
 {% endblock %}

@@ -4,7 +4,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    SQLALCHEMY_DATABASE_URI='sqlite:////home/xv/Desktop/chromeext/flask-template/database.db'
+    SQLALCHEMY_DATABASE_URI='sqlite:////home/benzite/Documents/Projects/Myshares/database.db'
     SQLALCHEMY_TRACK_MODIFICATIONS=True
     SECRET_KEY='jihoio@##RQT$WGFSDAGw/.,/>?>?}#@{$^#{%&$*#%#$Fzxcijk}dfg'
 
