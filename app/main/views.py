@@ -33,10 +33,11 @@ def personal():
 @login_required
 def about():
     return render_template('about.html')
-# @main.route('/dashboard')
-# @login_required
-# def dash():
-#     return render_template('dashboard.html')
+
+@main.route('/dashboard')
+@login_required
+def dash():
+    return render_template('dashboard.html')
 
 @main.route('/dashboard')
 @login_required

@@ -19,7 +19,8 @@ def register():
         if not User.query.filter(User.username==user).first():
             tempuser=User(username=user,password=passw,email=email)
             saveobject(tempuser)
-            return redirect(url_for('auth.login'))
+            login_user(tempuser)
+            return redirect(url_for('main.dash'))
     title = 'Home'
     return render_template('registration.html', title = title , form = form )
 
