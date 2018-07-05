@@ -24,7 +24,7 @@ def register():
     title = 'Home'
     return render_template('registration.html', title = title , form = form )
 
-@auth.route('/logout',methods=["GET","POST"])
+@auth.route('/signout',methods=["GET","POST"])
 def logout():
     if current_user.is_authenticated:
         logout_user()
@@ -46,6 +46,6 @@ def login():
             if tempuser.verify_password(passw):
                 print('Umepenya')
                 login_user(tempuser,form.remember.data)
-                return redirect(url_for('main.dash'))
+                return redirect(url_for('main.get_chart_data'))
     title = 'Home'
     return render_template('login.html', title = title , form = form )
