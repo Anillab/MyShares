@@ -6,7 +6,16 @@
     <title> {{ title }} </title>
 
     <div class="container">
-      <h2>Welcome back {{current_user.username}}</h2>
+      {% for company in companies %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <a href="/details/{{company.Company_id}}">{{company.Name}}</a>
+        </div>
+        <div class="panel-body">
+          {{company.Details}}
+        </div>
+      </div>
+    {% endfor %}
     </div>
 
 {% endblock %}
