@@ -69,7 +69,6 @@ def parsestocks(obj,today):
             Year_low_price=yrlow,
             Year_high_price=yrhigh,
             day=today))
-    return Stock_Info.query.filter(Stock_Info.day==today).all()
 
 def parsecompanies(obj):
     for comp in obj:
@@ -89,13 +88,14 @@ def parsecompanies(obj):
         Website=comp["website"],
         Indices=comp["indices"],
         Sector=comp["sector"]))
-    print(len(obj))
 
 def get_companies():
+    if Company.query.count()>19:
+        return Company.query.all()
     url=base_url.format('companies/')
     with urllib.request.urlopen(url) as rsp:
         resp=json.loads(rsp.read())
-    return parsecompanies(resp["data"])
+    parsecompanies(resp["data"])
 
 
 def get_todays():
@@ -105,4 +105,4 @@ def get_todays():
     url=base_url.format('instruments')
     with urllib.request.urlopen(url) as rsp:
         resp=json.loads(rsp.read())
-    return parsestocks(resp["data"],today)
+    parsestocks(resp["data"],today)

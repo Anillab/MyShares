@@ -6,17 +6,16 @@
     <title> {{ title }} </title>
 
     <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-      {{chartdata | safe}}
-       </div>
-       <div class="col-md-4">
-   <form action="">
-       <div class="form-group">
-         <input type="text" class="form-control"placeholder="Search Company">
-       </div>
- </form>
-       </div>
+      {% for company in companies %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <a href="/details/{{company.Company_id}}">{{company.Name}}</a>
+        </div>
+        <div class="panel-body">
+          {{company.Details}}
+        </div>
+      </div>
+    {% endfor %}
     </div>
     </div>
 <h1>kkkkkkk</h1>

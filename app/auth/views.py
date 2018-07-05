@@ -26,10 +26,9 @@ def register():
 
 @auth.route('/signout',methods=["GET","POST"])
 def logout():
-    if current_user.is_authenticated:
-        logout_user()
+    logout_user()
     title = 'Home'
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('main.dash'))
 
 @auth.route('/login',methods=["GET","POST"])
 def login():
