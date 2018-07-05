@@ -25,3 +25,9 @@ def details(companyid):
 @login_required
 def personal():
     return render_template('myaccount.html')
+
+
+@main.route('/about')
+@login_required
+def about():
+    return render_template('about.html')
