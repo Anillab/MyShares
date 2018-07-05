@@ -1,5 +1,6 @@
 # File for models/classes
 from . import db,login_manager
+import json
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 
@@ -16,13 +17,16 @@ class STOCKSHistory(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     companyid = db.Column(db.BigInteger)
     json = db.Column(db.String(255350))
-    def get_stocks(comapny):
+    @classmethod
+    def get_stocks(self,comapny):
         if STOCKSHistory.query.filter(STOCKSHistory.companyid==comapny).first():
-            return STOCKSHistory.query.filter(STOCKSHistory.companyid==comapny).first()
+            object=STOCKSHistory.query.filter(STOCKSHistory.companyid==comapny).first()
+            data=json.loads(object.json)['data'][::-1]
+            return data
         else:
             from .data import get_chart
             get_chart(comapny)
-            return get_stocks(comapny)
+            return self.get_stocks(comapny)
 
 class User(db.Model,UserMixin):
     """docstring for [object Object]."""
@@ -32,6 +36,7 @@ class User(db.Model,UserMixin):
     email = db.Column(db.String(65535))
     phone_number=db.Column(db.BigInteger)
     pass_secure = db.Column(db.String(65535))
+    money=db.Column(db.Integer,default=100000)
     @property
     def password(self):
         raise AttributeError('Failed You cannot read the password')
