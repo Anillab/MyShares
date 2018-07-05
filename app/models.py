@@ -1,10 +1,15 @@
 # File for models/classes
-from . import db
+from . import db,login_manager
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 
 def saveobject(object):
     db.session.add(object)
     db.session.commit()
+
+@login_manager.user_loader
+def usergetter(isd):
+	return User.query.get(isd)
 
 class STOCKSHistory(db.Model):
     __tablename__='stockshist'
@@ -19,7 +24,7 @@ class STOCKSHistory(db.Model):
             get_chart(comapny)
             return get_stocks(comapny)
 
-class User(db.Model):
+class User(db.Model,UserMixin):
     """docstring for [object Object]."""
     __tablename__='users'
     id=db.Column(db.Integer,primary_key=True)

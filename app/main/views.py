@@ -1,45 +1,27 @@
 from flask import current_app as app
 from flask import render_template,request,redirect,url_for,abort
+from flask_login import login_required,current_user
 from . import main
+from ..models import User
 from .forms import RegistrationForm,LoginForm
 
-# with app.app_context():
-#     app.config['SECRET_KEY'] = 'kabagemark'
+@main.route('/')
+def dash():
+    if current_user.is_authenticated:
+        return render_template('dashboard.html')
+    return render_template('index.html')
 
-# Views
-# @main.route('/')
-# def index():
+@main.route('/cashout/')
+@login_required
+def cashout():
+    return render_template('cashout.html')
 
-#     '''
-#     View root page function that returns the index page and its data
-#     '''
+@main.route('/details/<companyid>')
+@login_required
+def details(companyid):
+    return render_template('details.html')
 
-#     title = 'Home'
-
-#     return render_template('index.html', title = title )
-
-@main.route('/register')
-def register():
-    '''
-    View root page function that returns the index page and its data
-    '''
-
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        return redirect(url_for('index'))
-    title = 'Home'
-
-    return render_template('registration.html', title = title , form = form )
-
-@main.route('/login')
-def login():
-    '''
-    View root page function that returns the index page and its data
-    '''
-
-    form = LoginForm()
-    if form.validate_on_submit():
-        return redirect(url_for('index'))
-    title = 'Home'
-
-    return render_template('login.html', title = title , form = form )
+@main.route('/myaccount')
+@login_required
+def personal():
+    return render_template('myaccount.html')
