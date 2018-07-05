@@ -9,8 +9,6 @@ from pygal.style import DarkSolarizedStyle
 
 @main.route('/')
 def index():
-    # if current_user.is_authenticated:
-    #     return render_template('dashboard.html')
     return render_template('index.html')
 
 @main.route('/orders/')
