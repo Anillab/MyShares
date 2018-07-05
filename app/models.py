@@ -1,5 +1,6 @@
 # File for models/classes
 from . import db,login_manager
+import json
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 
@@ -18,7 +19,9 @@ class STOCKSHistory(db.Model):
     json = db.Column(db.String(255350))
     def get_stocks(comapny):
         if STOCKSHistory.query.filter(STOCKSHistory.companyid==comapny).first():
-            return STOCKSHistory.query.filter(STOCKSHistory.companyid==comapny).first()
+            data=STOCKSHistory.query.filter(STOCKSHistory.companyid==comapny).first()
+            data=json.loads(data.json)['data'][::-1]
+            return data
         else:
             from .data import get_chart
             get_chart(comapny)
