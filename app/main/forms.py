@@ -25,4 +25,6 @@ class LoginForm(FlaskForm):
 class Buyform(FlaskForm):
 
     amount = IntegerField('Amount')
+    autosell = IntegerField('Autosell: (0 means disabled)')
     company = HiddenField()
+    submit = SubmitField("Buy")

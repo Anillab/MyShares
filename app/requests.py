@@ -101,8 +101,12 @@ def get_companies():
 def get_todays():
     today=time.strftime('%d-%m-%Y')
     if Stock_Info.query.filter(Stock_Info.day==today).first():
+        for stock in User_stock_info.query.all():
+            stock.check_sell()
         return Stock_Info.query.filter(Stock_Info.day==today).all()
     url=base_url.format('instruments')
     with urllib.request.urlopen(url) as rsp:
         resp=json.loads(rsp.read())
     parsestocks(resp["data"],today)
+    for stock in User_stock_info.query.all():
+        stock.check_sell()

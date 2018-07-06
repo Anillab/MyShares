@@ -46,16 +46,17 @@ class User(db.Model,UserMixin):
         self.pass_secure=generate_password_hash(password)
     def verify_password(self,password):
         return check_password_hash(self.pass_secure,password)
-    def buystocks(self,company,amount):
+    def buystocks(self,company,amount,autosell):
         company=Company.query.get(company)
         if not company:
             return 'Non Existent company'
         stock=company.todays.first()
         value=stock.Close_price
+        print(autosell)
         if amount*value>self.money:
             return 'Not Enough Funds'
         self.money-=amount*value
-        saveobject(User_stock_info(userid=self.id,companyid=company.id,value_then=value,amount=amount))
+        saveobject(User_stock_info(userid=self.id,companyid=company.id,value_then=value,amount=amount,autosell=autosell))
     def sellstocks(self,id):
         stock=self.stocks.filter(User_stock_info.id==id).first()
         if not stock:
@@ -90,6 +91,11 @@ class User_stock_info(db.Model):
     companyid=db.Column(db.Integer, db.ForeignKey('company.id'))
     value_then=db.Column(db.BigInteger)
     amount=db.Column(db.BigInteger)
+    autosell=db.Column(db.BigInteger)
+    def check_sell(self):
+        if self.autosell!=0:
+            if self.company.todays.first().Close_price >= self.autosell:
+                self.user.sellstocks(self.id)
     def get_profit(self):
         value_now=self.company.todays.first().Close_price
         return (value_now-self.value_then)*self.amount

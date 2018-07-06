@@ -41,11 +41,12 @@ def cashout():
 @login_required
 def details(companyid):
     company = Company.query.filter(Company.Company_id==companyid).first()
-    form=Buyform(company=company.id)
+    form=Buyform(company=company.id,autosell=0)
     if form.validate_on_submit():
         amountform=form.amount.data
         companyidform=form.company.data
-        output=current_user.buystocks(companyidform,amountform)
+        autosell=form.autosell.data
+        output=current_user.buystocks(companyidform,amountform,autosell)
         if output:
             flash(output,'error')
         else:

@@ -7,7 +7,7 @@
 
     <div class="container">
         <table class="table table-xxs table-borderless js-details-cash">
-            <caption class="text-center">Your Account Details</caption>
+            <caption class="text-center"><b>Your Account Details</b></caption>
             <tbody>
                 <tr class="bg-grey">
                     <td>Available trading funds:</td>
@@ -24,6 +24,7 @@
                     <th class="text-center">amount</th>
                     <th class="text-center">Value Then</th>
                     <th class="text-center">value Now</th>
+                    <th class="text-center">Autosell</th>
                     <th class="text-center">Profit</th>
                     <th class="text-center">Sell</th>
                 </tr>
@@ -35,6 +36,7 @@
                   <td class="text-center">{{stock.amount}}</td>
                   <td class="text-center">{{stock.value_then}}</td>
                   <td class="text-center">{{stock.company.todays.first().Close_price}}</td>
+                  <td class="text-center">{{stock.autosell}}</td>
                   <td class="text-center">{{stock.get_profit()}}</td>
                   <td class="text-center">
                     <a href="/sell/{{stock.id}}">Sell</a>
