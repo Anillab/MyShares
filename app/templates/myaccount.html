@@ -6,7 +6,42 @@
     <title> {{ title }} </title>
 
     <div class="container">
-
+        <table class="table table-xxs table-borderless js-details-cash">
+            <caption class="text-center">Your Account Details</caption>
+            <tbody>
+                <tr class="bg-grey">
+                    <td>Available trading funds:</td>
+                    <td class="text-right">{{'KES {}'.format(current_user.money)}}</td>
+                </tr>
+                <tr><td></td><td></td></tr>
+            </tbody>
+        </table>
+        <table class="table table-xxxs">
+            <caption class="text-center js-order-book-title">My investments</caption>
+            <thead class="bg-grey-600">
+                <tr>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">amount</th>
+                    <th class="text-center">Value Then</th>
+                    <th class="text-center">value Now</th>
+                    <th class="text-center">Profit</th>
+                    <th class="text-center">Sell</th>
+                </tr>
+            </thead>
+            <tbody class="js-order-book-tbody"></tbody>
+            {% for stock in current_user.stocks %}
+              <tr>
+                  <td class="text-center">{{stock.company.Name}}</td>
+                  <td class="text-center">{{stock.amount}}</td>
+                  <td class="text-center">{{stock.value_then}}</td>
+                  <td class="text-center">{{stock.company.todays.first().Close_price}}</td>
+                  <td class="text-center">{{stock.get_profit()}}</td>
+                  <td class="text-center">
+                    <a href="/sell/{{stock.id}}">Sell</a>
+                  </td>
+              </tr>
+            {% endfor %}
+        </table>
     </div>
 
 {% endblock %}

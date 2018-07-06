@@ -70,6 +70,12 @@ def details(companyid):
     charthtml=bar_chart.render().decode()
     return render_template('details.html',chartdata=charthtml,company=company,form=form)
 
+@main.route('/sell/<int:id>')
+@login_required
+def seller(id):
+    current_user.sellstocks(id)
+    return render_template('myaccount.html')
+
 @main.route('/myaccount')
 @login_required
 def personal():

@@ -56,6 +56,17 @@ class User(db.Model,UserMixin):
             return 'Not Enough Funds'
         self.money-=amount*value
         saveobject(User_stock_info(userid=self.id,companyid=company.id,value_then=value,amount=amount))
+    def sellstocks(self,id):
+        stock=self.stocks.filter(User_stock_info.id==id).first()
+        if not stock:
+            return 'Error'
+        company=stock.company
+        todays=company.todays.first()
+        value=todays.Close_price
+        profit=stock.amount*value
+        self.money+=profit
+        db.session.delete(stock)
+        db.session.commit()
 class Stock_Info(db.Model):
     """docstring for [object Object]."""
     __tablename__='stocks_info'
@@ -79,7 +90,9 @@ class User_stock_info(db.Model):
     companyid=db.Column(db.Integer, db.ForeignKey('company.id'))
     value_then=db.Column(db.BigInteger)
     amount=db.Column(db.BigInteger)
-
+    def get_profit(self):
+        value_now=self.company.todays.first().Close_price
+        return (value_now-self.value_then)*self.amount
 class Company(db.Model):
     """docstring for [object Object]."""
     id=db.Column(db.Integer,primary_key=True)
