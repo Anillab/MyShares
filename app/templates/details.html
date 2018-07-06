@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
-
+{% import 'bootstrap/wtf.html' as wtf %}
 <!-- Content block -->
 {% block content %}
 
     <title> {{ title }} </title>
-
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <div class="container">
+      <div class="col-xs-12">
+        <img src="{{company.Logo}}" class="pull-left">
+        <div class="table-responsive">
+          <table class="table">
+          <tr><td></td></tr>
+          </table>
+        </div>
+      </div>
       <div class="col-md-6 col-xs-12">
         {% if chartdata %}
         {{chartdata|safe}}
@@ -14,65 +30,8 @@
         {% endif %}
       </div>
       <div class="col-md-6 col-xs-12">
-        <table class="table table-xxs table-borderless js-details-cash">
-            <caption class="text-center">Your Account Details</caption>
-            <tbody>
-                <tr>
-                    <td>Available trading funds:</td>
-                    <td class="text-right">{{'KES {:,.2f}'.format(current_user.money)}}</td>
-                </tr>
-                <tr>
-                    <td>Order Value:</td>
-                    <td class="text-right" data-account-value="order_value">--</td>
-                </tr>
-                <tr>
-                    <td>Tax Value:</td>
-                    <td class="text-right" data-account-value="tax_value">--</td>
-                </tr>
-                <tr>
-                    <td>Broker Value:</td>
-                    <td class="text-right" data-account-value="broker_value">--</td>
-                </tr>
-                <tr class="bg-grey">
-                    <td><b>Total Charge:</b></td>
-                    <td class="text-right" data-account-value="total_value">--</td>
-                </tr>
-                <tr class="bg-grey">
-                    <td><b>Remaining Funds:</b></td>
-                    <td class="text-right" data-account-value="remaining_funds_value">--</td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-xxxs hidden js-details-portfolio">
-            <caption class="text-center">Your Portfolio</caption>
-            <tbody>
-                            <tr>
-                    <td>KEGN</td>
-                    <td class="text-right">1,000</td>
-                </tr>
-                            <tr>
-                    <td>SCOM</td>
-                    <td class="text-right">400</td>
-                </tr>
-                        </tbody>
-        </table>
-        <table class="table table-xxxs">
-            <caption class="text-center js-order-book-title">No Company Selected.</caption>
-            <thead class="bg-grey-600">
-                <tr>
-                    <th colspan="2" class="text-center">BIDS</th>
-                    <th colspan="2" class="text-center">ASKS</th>
-                </tr>
-                <tr>
-                    <th class="text-right">Price</th>
-                    <th class="text-right">Quantity</th>
-                    <th class="text-right">Price</th>
-                    <th class="text-right">Quantity</th>
-                </tr>
-            </thead>
-            <tbody class="js-order-book-tbody"></tbody>
-        </table>
+        {{ wtf.quick_form(form) }}
+      </div>
     </div>
-  </div>
 
 {% endblock %}

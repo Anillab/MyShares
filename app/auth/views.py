@@ -45,6 +45,6 @@ def login():
             if tempuser.verify_password(passw):
                 print('Umepenya')
                 login_user(tempuser,form.remember.data)
-                return redirect(url_for('main.get_chart_data'))
+                return redirect(url_for('main.index'))
     title = 'Home'
     return render_template('login.html', title = title , form = form )

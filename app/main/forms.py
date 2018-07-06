@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField , SubmitField,BooleanField
+from wtforms import StringField, PasswordField , SubmitField, BooleanField, IntegerField, HiddenField
 from wtforms.validators import DataRequired , Length , Email , EqualTo
 
 class RegistrationForm(FlaskForm):
@@ -21,3 +21,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
 
     submit = SubmitField('Login')
+
+class Buyform(FlaskForm):
+
+    amount = IntegerField('Amount')
+    company = HiddenField()

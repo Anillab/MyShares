@@ -6,7 +6,7 @@
     <title> {{ title }} </title>
 
     <div class="container">
-      {% for company in companies %}
+    {% for company in companies %}
       <div class="panel panel-default">
         <div class="panel-heading">
           <a href="/details/{{company.Company_id}}">{{company.Name}}</a>
@@ -17,6 +17,5 @@
       </div>
     {% endfor %}
     </div>
-    </div>
-<h1>kkkkkkk</h1>
+  </div>
 {% endblock %}

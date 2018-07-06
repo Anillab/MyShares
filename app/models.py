@@ -37,6 +37,7 @@ class User(db.Model,UserMixin):
     phone_number=db.Column(db.BigInteger)
     pass_secure = db.Column(db.String(65535))
     money=db.Column(db.Integer,default=100000)
+    stocks=db.relationship('User_stock_info', backref='user', lazy='dynamic')
     @property
     def password(self):
         raise AttributeError('Failed You cannot read the password')
@@ -45,12 +46,21 @@ class User(db.Model,UserMixin):
         self.pass_secure=generate_password_hash(password)
     def verify_password(self,password):
         return check_password_hash(self.pass_secure,password)
-
+    def buystocks(self,company,amount):
+        company=Company.query.get(company)
+        if not company:
+            return 'Non Existent company'
+        stock=company.todays.first()
+        value=stock.Close_price
+        if amount*value>self.money:
+            return 'Not Enough Funds'
+        self.money-=amount*value
+        saveobject(User_stock_info(userid=self.id,companyid=company.id,value_then=value,amount=amount))
 class Stock_Info(db.Model):
     """docstring for [object Object]."""
     __tablename__='stocks_info'
     id=db.Column(db.Integer,primary_key=True)
-    Company_id=db.Column(db.String(65535))
+    Company_id=db.Column(db.Integer, db.ForeignKey('company.Company_id'))
     High_trade=db.Column(db.Float)
     Low_trade=db.Column(db.Float)
     Last_traded_price=db.Column(db.Float)
@@ -64,7 +74,11 @@ class Stock_Info(db.Model):
 class User_stock_info(db.Model):
     """docstring for [object Object]."""
     __tablename__='user_stock_info'
-    id=db.Column(db.BigInteger,primary_key=True)
+    id=db.Column(db.Integer,primary_key=True)
+    userid=db.Column(db.Integer, db.ForeignKey('users.id'))
+    companyid=db.Column(db.Integer, db.ForeignKey('company.id'))
+    value_then=db.Column(db.BigInteger)
+    amount=db.Column(db.BigInteger)
 
 class Company(db.Model):
     """docstring for [object Object]."""
@@ -85,3 +99,5 @@ class Company(db.Model):
     Website=db.Column(db.String(65535))
     Indices=db.Column(db.String(65535))
     Sector=db.Column(db.String(65535))
+    userbuys=db.relationship('User_stock_info', backref='company', lazy='dynamic')
+    todays=db.relationship('Stock_Info', backref='company', lazy='dynamic')
