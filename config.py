@@ -4,7 +4,9 @@ class Config:
     '''
     General configuration parent class
     '''
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://xv:greatkali@localhost/stocks'
+    SQLALCHEMY_DATABASE_URI='sqlite:////home/anilla/MyShares/database.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
+    SECRET_KEY='jihoio@##RQT$WGFSDAGw/.,/>?>?}#@{$^#{%&$*#%#$Fzxcijk}dfg'
 
 class ProdConfig(Config):
     '''
